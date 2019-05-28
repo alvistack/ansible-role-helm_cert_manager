@@ -87,5 +87,5 @@
   with_items:
     - { state: "present", src: "/etc/kubernetes/addons/cert-manager-crd.yml" }
     - { state: "present", src: "/etc/kubernetes/addons/cert-manager.yml" }
-  when: inventory_hostname == ansible_play_hosts[0]
+  when: ansible_hostname == ansible_play_hosts[0]
   tags: kubernetes_cert_manager
