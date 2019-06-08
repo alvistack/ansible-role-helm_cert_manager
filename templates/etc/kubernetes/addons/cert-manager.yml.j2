@@ -112,13 +112,13 @@ metadata:
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
   - apiGroups: ["certmanager.k8s.io"]
-    resources: ["certificates", "certificates/finalizers", "issuers", "clusterissuers", "orders", "orders/finalizers", "challenges"]
+    resources: ["certificates", "certificates/finalizers", "issuers", "clusterissuers", "orders", "orders/finalizers", "challenges", "challenges/finalizers"]
     verbs: ["*"]
   - apiGroups: [""]
     resources: ["configmaps", "secrets", "events", "services", "pods"]
     verbs: ["*"]
   - apiGroups: ["extensions"]
-    resources: ["ingresses"]
+    resources: ["ingresses", "ingresses/finalizers"]
     verbs: ["*"]
 
 ---
@@ -282,6 +282,7 @@ spec:
           image: {{ cert_manager_image_repository }}/cert-manager-cainjector:{{ cert_manager_version }}
           imagePullPolicy: IfNotPresent
           args:
+            - --v=2
             - --leader-election-namespace=$(POD_NAMESPACE)
           env:
             - name: POD_NAMESPACE
@@ -321,7 +322,7 @@ spec:
           image: {{ cert_manager_image_repository }}/cert-manager-webhook:{{ cert_manager_version }}
           imagePullPolicy: IfNotPresent
           args:
-            - --v=12
+            - --v=2
             - --secure-port=6443
             - --tls-cert-file=/certs/tls.crt
             - --tls-private-key-file=/certs/tls.key
@@ -373,6 +374,7 @@ spec:
           image: {{ cert_manager_image_repository }}/cert-manager-controller:{{ cert_manager_version }}
           imagePullPolicy: IfNotPresent
           args:
+            - --v=2
             - --cluster-resource-namespace=$(POD_NAMESPACE)
             - --leader-election-namespace=$(POD_NAMESPACE)
           ports:
