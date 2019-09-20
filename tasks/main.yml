@@ -84,11 +84,11 @@
   tags: kubernetes_cert_manager
 
 - name: apply manifests
+  vars:
+    ansible_python_interpreter: "/usr/bin/python3"
   k8s:
     src: "{{ item.src }}"
     state: "{{ item.state }}"
-  vars:
-    ansible_python_interpreter: "/usr/bin/python3"
   loop:
     - { state: "present", src: "/etc/kubernetes/addons/cert-manager-crd.yml" }
     - { state: "present", src: "/etc/kubernetes/addons/cert-manager.yml" }
