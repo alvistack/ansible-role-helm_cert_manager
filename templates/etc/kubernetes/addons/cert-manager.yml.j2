@@ -58,7 +58,7 @@ metadata:
     addonmanager.kubernetes.io/mode: Reconcile
 
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: cert-manager-cainjector
@@ -87,7 +87,7 @@ rules:
     verbs: ["get", "list", "watch", "update"]
 
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: cert-manager-cainjector
@@ -105,7 +105,7 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: cert-manager-leaderelection
@@ -119,7 +119,7 @@ rules:
     verbs: ["get", "create", "update", "patch"]
 
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: cert-manager-controller-issuers
@@ -142,7 +142,7 @@ rules:
     verbs: ["create", "patch"]
 
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: cert-manager-controller-clusterissuers
@@ -165,7 +165,7 @@ rules:
     verbs: ["create", "patch"]
 
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: cert-manager-controller-certificates
@@ -194,7 +194,7 @@ rules:
     verbs: ["create", "patch"]
 
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: cert-manager-controller-orders
@@ -223,7 +223,7 @@ rules:
     verbs: ["create", "patch"]
 
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: cert-manager-controller-challenges
@@ -258,7 +258,7 @@ rules:
     verbs: ["get", "list", "watch"]
 
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: cert-manager-controller-ingress-shim
@@ -284,7 +284,7 @@ rules:
     verbs: ["create", "patch"]
 
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: cert-manager-leaderelection
@@ -302,7 +302,7 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: cert-manager-controller-issuers
@@ -320,7 +320,7 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: cert-manager-controller-clusterissuers
@@ -338,7 +338,7 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: cert-manager-controller-certificates
@@ -356,7 +356,7 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: cert-manager-controller-orders
@@ -374,7 +374,7 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: cert-manager-controller-challenges
@@ -392,7 +392,7 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: cert-manager-controller-ingress-shim
@@ -443,7 +443,7 @@ rules:
     verbs: ["create", "delete", "deletecollection", "patch", "update"]
 
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: cert-manager-webhook:auth-delegator
@@ -462,7 +462,7 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: cert-manager-webhook:webhook-authentication-reader
