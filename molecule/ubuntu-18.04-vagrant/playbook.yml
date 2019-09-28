@@ -31,7 +31,6 @@
     - role: minikube
     - role: kubernetes-addon-manager
     - role: kubernetes-flannel
-    - role: kubernetes-metallb
     - role: kubernetes-ingress-nginx
     - role: kubernetes-cert-manager
 
