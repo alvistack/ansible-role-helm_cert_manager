@@ -15,7 +15,7 @@
 # limitations under the License.
 
 # cert-manager version.
-cert_manager_version: "v0.9.1"
+cert_manager_version: "v0.10.1"
 
 # ImageRepository sets the container registry to pull images from.
 cert_manager_image_repository: "quay.io/jetstack"
