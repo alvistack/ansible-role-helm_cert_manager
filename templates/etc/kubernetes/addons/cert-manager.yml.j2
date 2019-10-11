@@ -165,11 +165,9 @@ metadata:
   name: cert-manager-webhook:webhook-authentication-reader
   namespace: kube-system
   labels:
-    app: webhook
     app.kubernetes.io/name: webhook
-    app.kubernetes.io/instance:  cert-manager
-    app.kubernetes.io/managed-by: Tiller
-    helm.sh/chart: cert-manager-v0.11.0
+    app.kubernetes.io/part-of: cert-manager
+    addonmanager.kubernetes.io/mode: EnsureExists
 subjects:
   - kind: ServiceAccount
     name: cert-manager-webhook
