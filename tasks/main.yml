@@ -57,7 +57,6 @@
     state: "{{ item.state | default('directory') }}"
   loop:
     - { dest: "/etc/kubernetes/addons" }
-  when: ansible_hostname == ansible_play_hosts[0]
   tags: kubernetes_cert_manager
 
 - name: copy templates
@@ -70,7 +69,6 @@
   loop:
     - { dest: "/etc/kubernetes/addons/cert-manager-crd.yml" }
     - { dest: "/etc/kubernetes/addons/cert-manager.yml" }
-  when: ansible_hostname == ansible_play_hosts[0]
   tags: kubernetes_cert_manager
 
 - name: prepare files
@@ -83,5 +81,4 @@
   loop:
     - { dest: "/etc/kubernetes/addons/cert-manager-crd.yml" }
     - { dest: "/etc/kubernetes/addons/cert-manager.yml" }
-  when: ansible_hostname == ansible_play_hosts[0]
   tags: kubernetes_cert_manager
