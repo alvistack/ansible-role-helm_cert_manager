@@ -296,7 +296,7 @@ rules:
     resources: ["certificates", "certificaterequests", "clusterissuers", "issuers"]
     verbs: ["get", "list", "watch"]
   - apiGroups: ["cert-manager.io"]
-    resources: ["certificates/finalizers"]
+    resources: ["certificates/finalizers", "certificaterequests/finalizers"]
     verbs: ["update"]
   - apiGroups: ["acme.cert-manager.io"]
     resources: ["orders"]
@@ -581,7 +581,7 @@ spec:
   ports:
     - name: https
       port: 443
-      targetPort: 6443
+      targetPort: 10250
   selector:
     app.kubernetes.io/name: webhook
     app.kubernetes.io/part-of: cert-manager
@@ -614,7 +614,7 @@ spec:
     spec:
       serviceAccountName: cert-manager-cainjector
       containers:
-        - name: cainjector
+        - name: cert-manager
           image: {{ cert_manager_image_repository }}/cert-manager-cainjector:{{ cert_manager_version }}
           args:
             - --v=2
@@ -625,7 +625,7 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
           resources: {}
-            
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -668,6 +668,7 @@ spec:
             - --webhook-dns-names=cert-manager-webhook,cert-manager-webhook.cert-manager,cert-manager-webhook.cert-manager.svc
           ports:
             - containerPort: 9402
+              protocol: TCP
           env:
             - name: POD_NAMESPACE
               valueFrom:
@@ -677,7 +678,7 @@ spec:
             requests:
               cpu: 10m
               memory: 32Mi
-            
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -709,9 +710,19 @@ spec:
           image: {{ cert_manager_image_repository }}/cert-manager-webhook:{{ cert_manager_version }}
           args:
             - --v=2
-            - --secure-port=6443
+            - --secure-port=10250
             - --tls-cert-file=/certs/tls.crt
             - --tls-private-key-file=/certs/tls.key
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: 6080
+              scheme: HTTP
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 6080
+              scheme: HTTP
           env:
             - name: POD_NAMESPACE
               valueFrom:
@@ -727,26 +738,6 @@ spec:
             secretName: cert-manager-webhook-tls
 
 ---
-apiVersion: apiregistration.k8s.io/v1beta1
-kind: APIService
-metadata:
-  name: v1beta1.webhook.cert-manager.io
-  labels:
-    app.kubernetes.io/name: webhook
-    app.kubernetes.io/part-of: cert-manager
-    addonmanager.kubernetes.io/mode: Reconcile
-  annotations:
-    cert-manager.io/inject-ca-from-secret: "cert-manager/cert-manager-webhook-tls"
-spec:
-  group: webhook.cert-manager.io
-  groupPriorityMinimum: 1000
-  versionPriority: 15
-  service:
-    name: cert-manager-webhook
-    namespace: cert-manager
-  version: v1beta1
-
----
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: MutatingWebhookConfiguration
 metadata:
@@ -756,31 +747,27 @@ metadata:
     app.kubernetes.io/part-of: cert-manager
     addonmanager.kubernetes.io/mode: Reconcile
   annotations:
-    cert-manager.io/inject-apiserver-ca: "true"
+    cert-manager.io/inject-ca-from-secret: "cert-manager/cert-manager-webhook-tls"
 webhooks:
   - name: webhook.cert-manager.io
     rules:
       - apiGroups:
           - "cert-manager.io"
+          - "acme.cert-manager.io"
         apiVersions:
           - v1alpha2
         operations:
           - CREATE
           - UPDATE
         resources:
-          - certificates
-          - issuers
-          - clusterissuers
-          - orders
-          - challenges
-          - certificaterequests
+          - "*/*"
     failurePolicy: Fail
     sideEffects: None
     clientConfig:
       service:
-        name: kubernetes
-        namespace: default
-        path: /apis/webhook.cert-manager.io/v1beta1/mutations
+        name: cert-manager-webhook
+        namespace: "cert-manager"
+        path: /mutate
 
 ---
 apiVersion: admissionregistration.k8s.io/v1beta1
@@ -792,7 +779,7 @@ metadata:
     app.kubernetes.io/part-of: cert-manager
     addonmanager.kubernetes.io/mode: Reconcile
   annotations:
-    cert-manager.io/inject-apiserver-ca: "true"
+    cert-manager.io/inject-ca-from-secret: "cert-manager/cert-manager-webhook-tls"
 webhooks:
   - name: webhook.cert-manager.io
     namespaceSelector:
@@ -808,20 +795,18 @@ webhooks:
     rules:
       - apiGroups:
           - "cert-manager.io"
+          - "acme.cert-manager.io"
         apiVersions:
           - v1alpha2
         operations:
           - CREATE
           - UPDATE
         resources:
-          - certificates
-          - issuers
-          - clusterissuers
-          - certificaterequests
+          - "*/*"
     failurePolicy: Fail
     sideEffects: None
     clientConfig:
       service:
-        name: kubernetes
-        namespace: default
-        path: /apis/webhook.cert-manager.io/v1beta1/validations
+        name: cert-manager-webhook
+        namespace: "cert-manager"
+        path: /mutate
