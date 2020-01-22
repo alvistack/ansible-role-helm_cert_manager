@@ -133,7 +133,6 @@ subjects:
   - kind: ServiceAccount
     name: cert-manager-cainjector
     namespace: cert-manager
-    apiGroup: ""
 roleRef:
   kind: Role
   name: cert-manager-cainjector:leaderelection
@@ -678,7 +677,7 @@ spec:
             requests:
               cpu: 10m
               memory: 32Mi
-
+            
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -766,7 +765,7 @@ webhooks:
     clientConfig:
       service:
         name: cert-manager-webhook
-        namespace: "cert-manager"
+        namespace: cert-manager
         path: /mutate
 
 ---
@@ -808,5 +807,5 @@ webhooks:
     clientConfig:
       service:
         name: cert-manager-webhook
-        namespace: "cert-manager"
+        namespace: cert-manager
         path: /mutate
