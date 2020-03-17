@@ -88,149 +88,45 @@ rules:
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
+kind: ClusterRole
 metadata:
-  name: cert-manager-cainjector
+  name: cert-manager-controller-ingress-shim
   labels:
-    app.kubernetes.io/name: cainjector
-    app.kubernetes.io/part-of: cert-manager
-    addonmanager.kubernetes.io/mode: EnsureExists
-subjects:
-  - kind: ServiceAccount
-    name: cert-manager-cainjector
-    namespace: cert-manager
-roleRef:
-  kind: ClusterRole
-  name: cert-manager-cainjector
-  apiGroup: rbac.authorization.k8s.io
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: cert-manager-cainjector:leaderelection
-  namespace: kube-system
-  labels:
-    app.kubernetes.io/name: cainjector
+    app.kubernetes.io/name: cert-manager
     app.kubernetes.io/part-of: cert-manager
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
+  - apiGroups: ["cert-manager.io"]
+    resources: ["certificates", "certificaterequests"]
+    verbs: ["create", "update", "delete"]
+  - apiGroups: ["cert-manager.io"]
+    resources: ["certificates", "certificaterequests", "issuers", "clusterissuers"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["extensions"]
+    resources: ["ingresses"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["extensions"]
+    resources: ["ingresses/finalizers"]
+    verbs: ["update"]
   - apiGroups: [""]
-    resources: ["configmaps"]
-    verbs: ["get", "create", "update", "patch"]
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: cert-manager-cainjector:leaderelection
-  namespace: kube-system
-  labels:
-    app.kubernetes.io/name: cainjector
-    app.kubernetes.io/part-of: cert-manager
-    addonmanager.kubernetes.io/mode: EnsureExists
-subjects:
-  - kind: ServiceAccount
-    name: cert-manager-cainjector
-    namespace: cert-manager
-roleRef:
-  kind: Role
-  name: cert-manager-cainjector:leaderelection
-  apiGroup: rbac.authorization.k8s.io
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: cert-manager-webhook:auth-delegator
-  labels:
-    app.kubernetes.io/name: webhook
-    app.kubernetes.io/part-of: cert-manager
-    addonmanager.kubernetes.io/mode: EnsureExists
-subjects:
-  - kind: ServiceAccount
-    name: cert-manager-webhook
-    namespace: cert-manager
-    apiGroup: ""
-roleRef:
-  kind: ClusterRole
-  name: system:auth-delegator
-  apiGroup: rbac.authorization.k8s.io
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: cert-manager-webhook:webhook-authentication-reader
-  namespace: kube-system
-  labels:
-    app.kubernetes.io/name: webhook
-    app.kubernetes.io/part-of: cert-manager
-    addonmanager.kubernetes.io/mode: EnsureExists
-subjects:
-  - kind: ServiceAccount
-    name: cert-manager-webhook
-    namespace: cert-manager
-    apiGroup: ""
-roleRef:
-  kind: Role
-  name: extension-apiserver-authentication-reader
-  apiGroup: rbac.authorization.k8s.io
+    resources: ["events"]
+    verbs: ["create", "patch"]
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: cert-manager-webhook:webhook-requester
-  labels:
-    app.kubernetes.io/name: webhook
-    app.kubernetes.io/part-of: cert-manager
-    addonmanager.kubernetes.io/mode: Reconcile
-rules:
-  - apiGroups:
-      - admission.cert-manager.io
-    resources:
-      - certificates
-      - certificaterequests
-      - issuers
-      - clusterissuers
-    verbs:
-      - create
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: cert-manager:leaderelection
-  namespace: kube-system
+  name: cert-manager-edit
   labels:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/part-of: cert-manager
     addonmanager.kubernetes.io/mode: Reconcile
+    rbac.authorization.k8s.io/aggregate-to-edit: "true"
+    rbac.authorization.k8s.io/aggregate-to-admin: "true"
 rules:
-  - apiGroups: [""]
-    resources: ["configmaps"]
-    verbs: ["get", "create", "update", "patch"]
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: cert-manager:leaderelection
-  namespace: kube-system
-  labels:
-    app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/part-of: cert-manager
-    addonmanager.kubernetes.io/mode: EnsureExists
-subjects:
-  - kind: ServiceAccount
-    name: cert-manager
-    namespace: cert-manager
-    apiGroup: ""
-roleRef:
-  kind: Role
-  name: cert-manager:leaderelection
-  apiGroup: rbac.authorization.k8s.io
+  - apiGroups: ["cert-manager.io"]
+    resources: ["certificates", "certificaterequests", "issuers"]
+    verbs: ["create", "delete", "deletecollection", "patch", "update"]
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -259,53 +155,42 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: cert-manager-controller-clusterissuers
+  name: cert-manager-controller-challenges
   labels:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/part-of: cert-manager
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
-  - apiGroups: ["cert-manager.io"]
-    resources: ["clusterissuers", "clusterissuers/status"]
-    verbs: ["update"]
-  - apiGroups: ["cert-manager.io"]
-    resources: ["clusterissuers"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: [""]
-    resources: ["secrets"]
-    verbs: ["get", "list", "watch", "create", "update", "delete"]
-  - apiGroups: [""]
-    resources: ["events"]
-    verbs: ["create", "patch"]
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: cert-manager-controller-certificates
-  labels:
-    app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/part-of: cert-manager
-    addonmanager.kubernetes.io/mode: Reconcile
-rules:
-  - apiGroups: ["cert-manager.io"]
-    resources: ["certificates", "certificates/status", "certificaterequests", "certificaterequests/status"]
-    verbs: ["update"]
-  - apiGroups: ["cert-manager.io"]
-    resources: ["certificates", "certificaterequests", "clusterissuers", "issuers"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: ["cert-manager.io"]
-    resources: ["certificates/finalizers", "certificaterequests/finalizers"]
+  - apiGroups: ["acme.cert-manager.io"]
+    resources: ["challenges", "challenges/status"]
     verbs: ["update"]
   - apiGroups: ["acme.cert-manager.io"]
-    resources: ["orders"]
-    verbs: ["create", "delete", "get", "list", "watch"]
+    resources: ["challenges"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["cert-manager.io"]
+    resources: ["issuers", "clusterissuers"]
+    verbs: ["get", "list", "watch"]
   - apiGroups: [""]
     resources: ["secrets"]
-    verbs: ["get", "list", "watch", "create", "update", "delete"]
+    verbs: ["get", "list", "watch"]
   - apiGroups: [""]
     resources: ["events"]
     verbs: ["create", "patch"]
+  - apiGroups: [""]
+    resources: ["pods", "services"]
+    verbs: ["get", "list", "watch", "create", "delete"]
+  - apiGroups: ["extensions"]
+    resources: ["ingresses"]
+    verbs: ["get", "list", "watch", "create", "delete", "update"]
+  - apiGroups: ["route.openshift.io"]
+    resources: ["routes/custom-host"]
+    verbs: ["create"]
+  - apiGroups: ["acme.cert-manager.io"]
+    resources: ["challenges/finalizers"]
+    verbs: ["update"]
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "list", "watch"]
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -343,173 +228,30 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: cert-manager-controller-challenges
-  labels:
-    app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/part-of: cert-manager
-    addonmanager.kubernetes.io/mode: Reconcile
-rules:
-  - apiGroups: ["acme.cert-manager.io"]
-    resources: ["challenges", "challenges/status"]
-    verbs: ["update"]
-  - apiGroups: ["acme.cert-manager.io"]
-    resources: ["challenges"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: ["cert-manager.io"]
-    resources: ["issuers", "clusterissuers"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: [""]
-    resources: ["secrets"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: [""]
-    resources: ["events"]
-    verbs: ["create", "patch"]
-  - apiGroups: [""]
-    resources: ["pods", "services"]
-    verbs: ["get", "list", "watch", "create", "delete"]
-  - apiGroups: ["extensions"]
-    resources: ["ingresses"]
-    verbs: ["get", "list", "watch", "create", "delete", "update"]
-  - apiGroups: ["acme.cert-manager.io"]
-    resources: ["challenges/finalizers"]
-    verbs: ["update"]
-  - apiGroups: [""]
-    resources: ["secrets"]
-    verbs: ["get", "list", "watch"]
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: cert-manager-controller-ingress-shim
+  name: cert-manager-controller-certificates
   labels:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/part-of: cert-manager
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
   - apiGroups: ["cert-manager.io"]
-    resources: ["certificates", "certificaterequests"]
-    verbs: ["create", "update", "delete"]
-  - apiGroups: ["cert-manager.io"]
-    resources: ["certificates", "certificaterequests", "issuers", "clusterissuers"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: ["extensions"]
-    resources: ["ingresses"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: ["extensions"]
-    resources: ["ingresses/finalizers"]
+    resources: ["certificates", "certificates/status", "certificaterequests", "certificaterequests/status"]
     verbs: ["update"]
+  - apiGroups: ["cert-manager.io"]
+    resources: ["certificates", "certificaterequests", "clusterissuers", "issuers"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["cert-manager.io"]
+    resources: ["certificates/finalizers", "certificaterequests/finalizers"]
+    verbs: ["update"]
+  - apiGroups: ["acme.cert-manager.io"]
+    resources: ["orders"]
+    verbs: ["create", "delete", "get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "list", "watch", "create", "update", "delete"]
   - apiGroups: [""]
     resources: ["events"]
     verbs: ["create", "patch"]
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: cert-manager-controller-issuers
-  labels:
-    app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/part-of: cert-manager
-    addonmanager.kubernetes.io/mode: EnsureExists
-subjects:
-  - kind: ServiceAccount
-    name: cert-manager
-    namespace: cert-manager
-roleRef:
-  kind: ClusterRole
-  name: cert-manager-controller-issuers
-  apiGroup: rbac.authorization.k8s.io
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: cert-manager-controller-clusterissuers
-  labels:
-    app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/part-of: cert-manager
-    addonmanager.kubernetes.io/mode: EnsureExists
-subjects:
-  - kind: ServiceAccount
-    name: cert-manager
-    namespace: cert-manager
-roleRef:
-  kind: ClusterRole
-  name: cert-manager-controller-clusterissuers
-  apiGroup: rbac.authorization.k8s.io
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: cert-manager-controller-certificates
-  labels:
-    app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/part-of: cert-manager
-    addonmanager.kubernetes.io/mode: EnsureExists
-subjects:
-  - kind: ServiceAccount
-    name: cert-manager
-    namespace: cert-manager
-roleRef:
-  kind: ClusterRole
-  name: cert-manager-controller-certificates
-  apiGroup: rbac.authorization.k8s.io
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: cert-manager-controller-orders
-  labels:
-    app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/part-of: cert-manager
-    addonmanager.kubernetes.io/mode: EnsureExists
-subjects:
-  - kind: ServiceAccount
-    name: cert-manager
-    namespace: cert-manager
-roleRef:
-  kind: ClusterRole
-  name: cert-manager-controller-orders
-  apiGroup: rbac.authorization.k8s.io
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: cert-manager-controller-challenges
-  labels:
-    app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/part-of: cert-manager
-    addonmanager.kubernetes.io/mode: EnsureExists
-subjects:
-  - kind: ServiceAccount
-    name: cert-manager
-    namespace: cert-manager
-roleRef:
-  kind: ClusterRole
-  name: cert-manager-controller-challenges
-  apiGroup: rbac.authorization.k8s.io
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: cert-manager-controller-ingress-shim
-  labels:
-    app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/part-of: cert-manager
-    addonmanager.kubernetes.io/mode: EnsureExists
-subjects:
-  - kind: ServiceAccount
-    name: cert-manager
-    namespace: cert-manager
-roleRef:
-  kind: ClusterRole
-  name: cert-manager-controller-ingress-shim
-  apiGroup: rbac.authorization.k8s.io
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -532,17 +274,219 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: cert-manager-edit
+  name: cert-manager-controller-clusterissuers
   labels:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/part-of: cert-manager
     addonmanager.kubernetes.io/mode: Reconcile
-    rbac.authorization.k8s.io/aggregate-to-edit: "true"
-    rbac.authorization.k8s.io/aggregate-to-admin: "true"
 rules:
   - apiGroups: ["cert-manager.io"]
-    resources: ["certificates", "certificaterequests", "issuers"]
-    verbs: ["create", "delete", "deletecollection", "patch", "update"]
+    resources: ["clusterissuers", "clusterissuers/status"]
+    verbs: ["update"]
+  - apiGroups: ["cert-manager.io"]
+    resources: ["clusterissuers"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "list", "watch", "create", "update", "delete"]
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["create", "patch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cert-manager-cainjector
+  labels:
+    app.kubernetes.io/name: cainjector
+    app.kubernetes.io/part-of: cert-manager
+    addonmanager.kubernetes.io/mode: EnsureExists
+subjects:
+  - kind: ServiceAccount
+    name: cert-manager-cainjector
+    namespace: cert-manager
+roleRef:
+  kind: ClusterRole
+  name: cert-manager-cainjector
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cert-manager-controller-clusterissuers
+  labels:
+    app.kubernetes.io/name: cert-manager
+    app.kubernetes.io/part-of: cert-manager
+    addonmanager.kubernetes.io/mode: EnsureExists
+subjects:
+  - kind: ServiceAccount
+    name: cert-manager
+    namespace: cert-manager
+roleRef:
+  kind: ClusterRole
+  name: cert-manager-controller-clusterissuers
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cert-manager-controller-issuers
+  labels:
+    app.kubernetes.io/name: cert-manager
+    app.kubernetes.io/part-of: cert-manager
+    addonmanager.kubernetes.io/mode: EnsureExists
+subjects:
+  - kind: ServiceAccount
+    name: cert-manager
+    namespace: cert-manager
+roleRef:
+  kind: ClusterRole
+  name: cert-manager-controller-issuers
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cert-manager-controller-challenges
+  labels:
+    app.kubernetes.io/name: cert-manager
+    app.kubernetes.io/part-of: cert-manager
+    addonmanager.kubernetes.io/mode: EnsureExists
+subjects:
+  - kind: ServiceAccount
+    name: cert-manager
+    namespace: cert-manager
+roleRef:
+  kind: ClusterRole
+  name: cert-manager-controller-challenges
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cert-manager-controller-ingress-shim
+  labels:
+    app.kubernetes.io/name: cert-manager
+    app.kubernetes.io/part-of: cert-manager
+    addonmanager.kubernetes.io/mode: EnsureExists
+subjects:
+  - kind: ServiceAccount
+    name: cert-manager
+    namespace: cert-manager
+roleRef:
+  kind: ClusterRole
+  name: cert-manager-controller-ingress-shim
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cert-manager-controller-orders
+  labels:
+    app.kubernetes.io/name: cert-manager
+    app.kubernetes.io/part-of: cert-manager
+    addonmanager.kubernetes.io/mode: EnsureExists
+subjects:
+  - kind: ServiceAccount
+    name: cert-manager
+    namespace: cert-manager
+roleRef:
+  kind: ClusterRole
+  name: cert-manager-controller-orders
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cert-manager-controller-certificates
+  labels:
+    app.kubernetes.io/name: cert-manager
+    app.kubernetes.io/part-of: cert-manager
+    addonmanager.kubernetes.io/mode: EnsureExists
+subjects:
+  - kind: ServiceAccount
+    name: cert-manager
+    namespace: cert-manager
+roleRef:
+  kind: ClusterRole
+  name: cert-manager-controller-certificates
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: cert-manager-cainjector:leaderelection
+  namespace: kube-system
+  labels:
+    app.kubernetes.io/name: cainjector
+    app.kubernetes.io/part-of: cert-manager
+    addonmanager.kubernetes.io/mode: Reconcile
+rules:
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get", "create", "update", "patch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: cert-manager:leaderelection
+  namespace: kube-system
+  labels:
+    app.kubernetes.io/name: cert-manager
+    app.kubernetes.io/part-of: cert-manager
+    addonmanager.kubernetes.io/mode: Reconcile
+rules:
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get", "create", "update", "patch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cert-manager-cainjector:leaderelection
+  namespace: kube-system
+  labels:
+    app.kubernetes.io/name: cainjector
+    app.kubernetes.io/part-of: cert-manager
+    addonmanager.kubernetes.io/mode: EnsureExists
+subjects:
+  - kind: ServiceAccount
+    name: cert-manager-cainjector
+    namespace: cert-manager
+roleRef:
+  name: cert-manager-cainjector:leaderelection
+  kind: Role
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cert-manager:leaderelection
+  namespace: kube-system
+  labels:
+    app.kubernetes.io/name: cert-manager
+    app.kubernetes.io/part-of: cert-manager
+    addonmanager.kubernetes.io/mode: EnsureExists
+subjects:
+  - kind: ServiceAccount
+    name: cert-manager
+    namespace: cert-manager
+    apiGroup: ""
+roleRef:
+  kind: Role
+  name: cert-manager:leaderelection
+  apiGroup: rbac.authorization.k8s.io
 
 ---
 apiVersion: v1
@@ -673,10 +617,7 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
-          resources:
-            requests:
-              cpu: 10m
-              memory: 32Mi
+          resources: {}
 
 ---
 apiVersion: apps/v1
