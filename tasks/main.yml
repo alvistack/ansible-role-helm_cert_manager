@@ -71,8 +71,8 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0644') }}"
   loop:
-    - { dest: "/etc/kubernetes/addons/cert-manager-crd.yml" }
-    - { dest: "/etc/kubernetes/addons/cert-manager.yml" }
+    - { dest: "/etc/kubernetes/addons/00-crd-cert-manager.yml" }
+    - { dest: "/etc/kubernetes/addons/80-cert-manager.yml" }
 
 - name: prepare files
   file:
@@ -82,5 +82,5 @@
     mode: "{{ item.mode | default('0644') }}"
     state: "{{ item.state | default('file') }}"
   loop:
-    - { dest: "/etc/kubernetes/addons/cert-manager-crd.yml" }
-    - { dest: "/etc/kubernetes/addons/cert-manager.yml" }
+    - { dest: "/etc/kubernetes/addons/00-crd-cert-manager.yml" }
+    - { dest: "/etc/kubernetes/addons/80-cert-manager.yml" }
