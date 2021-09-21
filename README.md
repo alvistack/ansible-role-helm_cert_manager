@@ -1,5 +1,7 @@
 # Ansible Role for cert-manager on Kubernetes
 
+<img src="/alvistack.svg" width="75" alt="AlviStack">
+
 [![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/alvistack/ansible-role-kube_cert_manager/master)](https://gitlab.com/alvistack/ansible-role-kube_cert_manager/-/pipelines)
 [![GitHub release](https://img.shields.io/github/release/alvistack/ansible-role-kube_cert_manager.svg)](https://github.com/alvistack/ansible-role-kube_cert_manager/releases)
 [![GitHub license](https://img.shields.io/github/license/alvistack/ansible-role-kube_cert_manager.svg)](https://github.com/alvistack/ansible-role-kube_cert_manager/blob/master/LICENSE)
