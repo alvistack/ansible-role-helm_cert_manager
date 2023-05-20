@@ -31,8 +31,8 @@ metadata:
     app: cainjector
     app.kubernetes.io/name: cainjector
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "cainjector"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: cainjector
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
 
 ---
@@ -46,8 +46,8 @@ metadata:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "controller"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
 
 ---
@@ -61,8 +61,8 @@ metadata:
     app: webhook
     app.kubernetes.io/name: webhook
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "webhook"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: webhook
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
 
 ---
@@ -75,7 +75,8 @@ metadata:
     app: webhook
     app.kubernetes.io/name: webhook
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "webhook"
+    app.kubernetes.io/component: webhook
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
 data:
 {% if kube_cert_manager_configmap_cert_manager_webhook %}
@@ -91,28 +92,66 @@ metadata:
     app: cainjector
     app.kubernetes.io/name: cainjector
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "cainjector"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: cainjector
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
-  - apiGroups: ["cert-manager.io"]
-    resources: ["certificates"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: [""]
-    resources: ["secrets"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: [""]
-    resources: ["events"]
-    verbs: ["get", "create", "update", "patch"]
-  - apiGroups: ["admissionregistration.k8s.io"]
-    resources: ["validatingwebhookconfigurations", "mutatingwebhookconfigurations"]
-    verbs: ["get", "list", "watch", "update"]
-  - apiGroups: ["apiregistration.k8s.io"]
-    resources: ["apiservices"]
-    verbs: ["get", "list", "watch", "update"]
-  - apiGroups: ["apiextensions.k8s.io"]
-    resources: ["customresourcedefinitions"]
-    verbs: ["get", "list", "watch", "update"]
+  - apiGroups:
+      - cert-manager.io
+    resources:
+      - certificates
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - get
+      - create
+      - update
+      - patch
+  - apiGroups:
+      - admissionregistration.k8s.io
+    resources:
+      - validatingwebhookconfigurations
+      - mutatingwebhookconfigurations
+    verbs:
+      - get
+      - list
+      - watch
+      - update
+      - patch
+  - apiGroups:
+      - apiregistration.k8s.io
+    resources:
+      - apiservices
+    verbs:
+      - get
+      - list
+      - watch
+      - update
+      - patch
+  - apiGroups:
+      - apiextensions.k8s.io
+    resources:
+      - customresourcedefinitions
+    verbs:
+      - get
+      - list
+      - watch
+      - update
+      - patch
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -123,22 +162,44 @@ metadata:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "controller"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
-  - apiGroups: ["cert-manager.io"]
-    resources: ["issuers", "issuers/status"]
-    verbs: ["update", "patch"]
-  - apiGroups: ["cert-manager.io"]
-    resources: ["issuers"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: [""]
-    resources: ["secrets"]
-    verbs: ["get", "list", "watch", "create", "update", "delete"]
-  - apiGroups: [""]
-    resources: ["events"]
-    verbs: ["create", "patch"]
+  - apiGroups:
+      - cert-manager.io
+    resources:
+      - issuers
+      - issuers/status
+    verbs:
+      - update
+      - patch
+  - apiGroups:
+      - cert-manager.io
+    resources:
+      - issuers
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
+      - patch
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -149,22 +210,44 @@ metadata:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "controller"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
-  - apiGroups: ["cert-manager.io"]
-    resources: ["clusterissuers", "clusterissuers/status"]
-    verbs: ["update", "patch"]
-  - apiGroups: ["cert-manager.io"]
-    resources: ["clusterissuers"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: [""]
-    resources: ["secrets"]
-    verbs: ["get", "list", "watch", "create", "update", "delete"]
-  - apiGroups: [""]
-    resources: ["events"]
-    verbs: ["create", "patch"]
+  - apiGroups:
+      - cert-manager.io
+    resources:
+      - clusterissuers
+      - clusterissuers/status
+    verbs:
+      - update
+      - patch
+  - apiGroups:
+      - cert-manager.io
+    resources:
+      - clusterissuers
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
+      - patch
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -175,28 +258,67 @@ metadata:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "controller"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
-  - apiGroups: ["cert-manager.io"]
-    resources: ["certificates", "certificates/status", "certificaterequests", "certificaterequests/status"]
-    verbs: ["update", "patch"]
-  - apiGroups: ["cert-manager.io"]
-    resources: ["certificates", "certificaterequests", "clusterissuers", "issuers"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: ["cert-manager.io"]
-    resources: ["certificates/finalizers", "certificaterequests/finalizers"]
-    verbs: ["update"]
-  - apiGroups: ["acme.cert-manager.io"]
-    resources: ["orders"]
-    verbs: ["create", "delete", "get", "list", "watch"]
-  - apiGroups: [""]
-    resources: ["secrets"]
-    verbs: ["get", "list", "watch", "create", "update", "delete", "patch"]
-  - apiGroups: [""]
-    resources: ["events"]
-    verbs: ["create", "patch"]
+  - apiGroups:
+      - cert-manager.io
+    resources:
+      - certificates
+      - certificates/status
+      - certificaterequests
+      - certificaterequests/status
+    verbs:
+      - update
+      - patch
+  - apiGroups:
+      - cert-manager.io
+    resources:
+      - certificates
+      - certificaterequests
+      - clusterissuers
+      - issuers
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - cert-manager.io
+    resources:
+      - certificates/finalizers
+      - certificaterequests/finalizers
+    verbs:
+      - update
+  - apiGroups:
+      - acme.cert-manager.io
+    resources:
+      - orders
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - delete
+      - patch
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
+      - patch
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -207,31 +329,64 @@ metadata:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "controller"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
-  - apiGroups: ["acme.cert-manager.io"]
-    resources: ["orders", "orders/status"]
-    verbs: ["update", "patch"]
-  - apiGroups: ["acme.cert-manager.io"]
-    resources: ["orders", "challenges"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: ["cert-manager.io"]
-    resources: ["clusterissuers", "issuers"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: ["acme.cert-manager.io"]
-    resources: ["challenges"]
-    verbs: ["create", "delete"]
-  - apiGroups: ["acme.cert-manager.io"]
-    resources: ["orders/finalizers"]
-    verbs: ["update"]
-  - apiGroups: [""]
-    resources: ["secrets"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: [""]
-    resources: ["events"]
-    verbs: ["create", "patch"]
+  - apiGroups:
+      - acme.cert-manager.io
+    resources:
+      - orders
+      - orders/status
+    verbs:
+      - update
+      - patch
+  - apiGroups:
+      - acme.cert-manager.io
+    resources:
+      - orders
+      - challenges
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - cert-manager.io
+    resources:
+      - clusterissuers
+      - issuers
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - acme.cert-manager.io
+    resources:
+      - challenges
+    verbs:
+      - create
+      - delete
+  - apiGroups:
+      - acme.cert-manager.io
+    resources:
+      - orders/finalizers
+    verbs:
+      - update
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
+      - patch
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -242,43 +397,103 @@ metadata:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "controller"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
-  - apiGroups: ["acme.cert-manager.io"]
-    resources: ["challenges", "challenges/status"]
-    verbs: ["update", "patch"]
-  - apiGroups: ["acme.cert-manager.io"]
-    resources: ["challenges"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: ["cert-manager.io"]
-    resources: ["issuers", "clusterissuers"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: [""]
-    resources: ["secrets"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: [""]
-    resources: ["events"]
-    verbs: ["create", "patch"]
-  - apiGroups: [""]
-    resources: ["pods", "services"]
-    verbs: ["get", "list", "watch", "create", "delete"]
-  - apiGroups: ["networking.k8s.io"]
-    resources: ["ingresses"]
-    verbs: ["get", "list", "watch", "create", "delete", "update"]
-  - apiGroups: ["gateway.networking.k8s.io"]
-    resources: ["httproutes"]
-    verbs: ["get", "list", "watch", "create", "delete", "update"]
-  - apiGroups: ["route.openshift.io"]
-    resources: ["routes/custom-host"]
-    verbs: ["create"]
-  - apiGroups: ["acme.cert-manager.io"]
-    resources: ["challenges/finalizers"]
-    verbs: ["update"]
-  - apiGroups: [""]
-    resources: ["secrets"]
-    verbs: ["get", "list", "watch"]
+  - apiGroups:
+      - acme.cert-manager.io
+    resources:
+      - challenges
+      - challenges/status
+    verbs:
+      - update
+      - patch
+  - apiGroups:
+      - acme.cert-manager.io
+    resources:
+      - challenges
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - cert-manager.io
+    resources:
+      - issuers
+      - clusterissuers
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
+      - patch
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+      - services
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+  - apiGroups:
+      - networking.k8s.io
+    resources:
+      - ingresses
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - update
+  - apiGroups:
+      - gateway.networking.k8s.io
+    resources:
+      - httproutes
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - update
+  - apiGroups:
+      - route.openshift.io
+    resources:
+      - routes/custom-host
+    verbs:
+      - create
+  - apiGroups:
+      - acme.cert-manager.io
+    resources:
+      - challenges/finalizers
+    verbs:
+      - update
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - get
+      - list
+      - watch
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -289,31 +504,67 @@ metadata:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "controller"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
-  - apiGroups: ["cert-manager.io"]
-    resources: ["certificates", "certificaterequests"]
-    verbs: ["create", "update", "delete"]
-  - apiGroups: ["cert-manager.io"]
-    resources: ["certificates", "certificaterequests", "issuers", "clusterissuers"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: ["networking.k8s.io"]
-    resources: ["ingresses"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: ["networking.k8s.io"]
-    resources: ["ingresses/finalizers"]
-    verbs: ["update"]
-  - apiGroups: ["gateway.networking.k8s.io"]
-    resources: ["gateways", "httproutes"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: ["gateway.networking.k8s.io"]
-    resources: ["gateways/finalizers", "httproutes/finalizers"]
-    verbs: ["update"]
-  - apiGroups: [""]
-    resources: ["events"]
-    verbs: ["create", "patch"]
+  - apiGroups:
+      - cert-manager.io
+    resources:
+      - certificates
+      - certificaterequests
+    verbs:
+      - create
+      - update
+      - delete
+  - apiGroups:
+      - cert-manager.io
+    resources:
+      - certificates
+      - certificaterequests
+      - issuers
+      - clusterissuers
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - networking.k8s.io
+    resources:
+      - ingresses
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - networking.k8s.io
+    resources:
+      - ingresses/finalizers
+    verbs:
+      - update
+  - apiGroups:
+      - gateway.networking.k8s.io
+    resources:
+      - gateways
+      - httproutes
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - gateway.networking.k8s.io
+    resources:
+      - gateways/finalizers
+      - httproutes/finalizers
+    verbs:
+      - update
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
+      - patch
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -324,19 +575,32 @@ metadata:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "controller"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
     rbac.authorization.k8s.io/aggregate-to-view: "true"
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
     rbac.authorization.k8s.io/aggregate-to-admin: "true"
 rules:
-  - apiGroups: ["cert-manager.io"]
-    resources: ["certificates", "certificaterequests", "issuers"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: ["acme.cert-manager.io"]
-    resources: ["challenges", "orders"]
-    verbs: ["get", "list", "watch"]
+  - apiGroups:
+      - cert-manager.io
+    resources:
+      - certificates
+      - certificaterequests
+      - issuers
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - acme.cert-manager.io
+    resources:
+      - challenges
+      - orders
+    verbs:
+      - get
+      - list
+      - watch
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -347,21 +611,41 @@ metadata:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "controller"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
     rbac.authorization.k8s.io/aggregate-to-admin: "true"
 rules:
-  - apiGroups: ["cert-manager.io"]
-    resources: ["certificates", "certificaterequests", "issuers"]
-    verbs: ["create", "delete", "deletecollection", "patch", "update"]
-  - apiGroups: ["cert-manager.io"]
-    resources: ["certificates/status"]
-    verbs: ["update"]
-  - apiGroups: ["acme.cert-manager.io"]
-    resources: ["challenges", "orders"]
-    verbs: ["create", "delete", "deletecollection", "patch", "update"]
+  - apiGroups:
+      - cert-manager.io
+    resources:
+      - certificates
+      - certificaterequests
+      - issuers
+    verbs:
+      - create
+      - delete
+      - deletecollection
+      - patch
+      - update
+  - apiGroups:
+      - cert-manager.io
+    resources:
+      - certificates/status
+    verbs:
+      - update
+  - apiGroups:
+      - acme.cert-manager.io
+    resources:
+      - challenges
+      - orders
+    verbs:
+      - create
+      - delete
+      - deletecollection
+      - patch
+      - update
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -372,14 +656,19 @@ metadata:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "cert-manager"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: cert-manager
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
-  - apiGroups: ["cert-manager.io"]
-    resources: ["signers"]
-    verbs: ["approve"]
-    resourceNames: ["issuers.cert-manager.io/*", "clusterissuers.cert-manager.io/*"]
+  - apiGroups:
+      - cert-manager.io
+    resources:
+      - signers
+    verbs:
+      - approve
+    resourceNames:
+      - issuers.cert-manager.io/*
+      - clusterissuers.cert-manager.io/*
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -390,23 +679,41 @@ metadata:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "cert-manager"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: cert-manager
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
-  - apiGroups: ["certificates.k8s.io"]
-    resources: ["certificatesigningrequests"]
-    verbs: ["get", "list", "watch", "update"]
-  - apiGroups: ["certificates.k8s.io"]
-    resources: ["certificatesigningrequests/status"]
-    verbs: ["update", "patch"]
-  - apiGroups: ["certificates.k8s.io"]
-    resources: ["signers"]
-    resourceNames: ["issuers.cert-manager.io/*", "clusterissuers.cert-manager.io/*"]
-    verbs: ["sign"]
-  - apiGroups: ["authorization.k8s.io"]
-    resources: ["subjectaccessreviews"]
-    verbs: ["create"]
+  - apiGroups:
+      - certificates.k8s.io
+    resources:
+      - certificatesigningrequests
+    verbs:
+      - get
+      - list
+      - watch
+      - update
+  - apiGroups:
+      - certificates.k8s.io
+    resources:
+      - certificatesigningrequests/status
+    verbs:
+      - update
+      - patch
+  - apiGroups:
+      - certificates.k8s.io
+    resources:
+      - signers
+    resourceNames:
+      - issuers.cert-manager.io/*
+      - clusterissuers.cert-manager.io/*
+    verbs:
+      - sign
+  - apiGroups:
+      - authorization.k8s.io
+    resources:
+      - subjectaccessreviews
+    verbs:
+      - create
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -417,13 +724,16 @@ metadata:
     app: webhook
     app.kubernetes.io/name: webhook
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "webhook"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: webhook
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
-  - apiGroups: ["authorization.k8s.io"]
-    resources: ["subjectaccessreviews"]
-    verbs: ["create"]
+  - apiGroups:
+      - authorization.k8s.io
+    resources:
+      - subjectaccessreviews
+    verbs:
+      - create
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -434,8 +744,8 @@ metadata:
     app: cainjector
     app.kubernetes.io/name: cainjector
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "cainjector"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: cainjector
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -455,8 +765,8 @@ metadata:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "controller"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -476,8 +786,8 @@ metadata:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "controller"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -497,8 +807,8 @@ metadata:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "controller"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -518,8 +828,8 @@ metadata:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "controller"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -539,8 +849,8 @@ metadata:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "controller"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -560,8 +870,8 @@ metadata:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "controller"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -581,8 +891,8 @@ metadata:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "cert-manager"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: cert-manager
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -602,8 +912,8 @@ metadata:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "cert-manager"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: cert-manager
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -623,8 +933,8 @@ metadata:
     app: webhook
     app.kubernetes.io/name: webhook
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "webhook"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: webhook
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -646,17 +956,27 @@ metadata:
     app: cainjector
     app.kubernetes.io/name: cainjector
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "cainjector"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: cainjector
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
-  - apiGroups: ["coordination.k8s.io"]
-    resources: ["leases"]
-    resourceNames: ["cert-manager-cainjector-leader-election", "cert-manager-cainjector-leader-election-core"]
-    verbs: ["get", "update", "patch"]
-  - apiGroups: ["coordination.k8s.io"]
-    resources: ["leases"]
-    verbs: ["create"]
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    resourceNames:
+      - cert-manager-cainjector-leader-election
+      - cert-manager-cainjector-leader-election-core
+    verbs:
+      - get
+      - update
+      - patch
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    verbs:
+      - create
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -668,17 +988,26 @@ metadata:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "controller"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
-  - apiGroups: ["coordination.k8s.io"]
-    resources: ["leases"]
-    resourceNames: ["cert-manager-controller"]
-    verbs: ["get", "update", "patch"]
-  - apiGroups: ["coordination.k8s.io"]
-    resources: ["leases"]
-    verbs: ["create"]
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    resourceNames:
+      - cert-manager-controller
+    verbs:
+      - get
+      - update
+      - patch
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    verbs:
+      - create
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -690,18 +1019,27 @@ metadata:
     app: webhook
     app.kubernetes.io/name: webhook
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "webhook"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: webhook
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
-  - apiGroups: [""]
-    resources: ["secrets"]
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
     resourceNames:
-      - 'cert-manager-webhook-ca'
-    verbs: ["get", "list", "watch", "update"]
-  - apiGroups: [""]
-    resources: ["secrets"]
-    verbs: ["create"]
+      - cert-manager-webhook-ca
+    verbs:
+      - get
+      - list
+      - watch
+      - update
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - create
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -713,8 +1051,8 @@ metadata:
     app: cainjector
     app.kubernetes.io/name: cainjector
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "cainjector"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: cainjector
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -735,8 +1073,8 @@ metadata:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "controller"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -758,8 +1096,8 @@ metadata:
     app: webhook
     app.kubernetes.io/name: webhook
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "webhook"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: webhook
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -781,8 +1119,8 @@ metadata:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "controller"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
 spec:
   type: ClusterIP
@@ -794,7 +1132,7 @@ spec:
   selector:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "controller"
+    app.kubernetes.io/component: controller
 
 ---
 apiVersion: v1
@@ -806,8 +1144,8 @@ metadata:
     app: webhook
     app.kubernetes.io/name: webhook
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "webhook"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: webhook
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
 spec:
   type: ClusterIP
@@ -815,11 +1153,11 @@ spec:
     - name: https
       port: 443
       protocol: TCP
-      targetPort: "https"
+      targetPort: https
   selector:
     app.kubernetes.io/name: webhook
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "webhook"
+    app.kubernetes.io/component: webhook
 
 ---
 apiVersion: apps/v1
@@ -831,8 +1169,8 @@ metadata:
     app: cainjector
     app.kubernetes.io/name: cainjector
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "cainjector"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: cainjector
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
 spec:
   replicas: 1
@@ -840,15 +1178,15 @@ spec:
     matchLabels:
       app.kubernetes.io/name: cainjector
       app.kubernetes.io/instance: cert-manager
-      app.kubernetes.io/component: "cainjector"
+      app.kubernetes.io/component: cainjector
   template:
     metadata:
       labels:
         app: cainjector
         app.kubernetes.io/name: cainjector
         app.kubernetes.io/instance: cert-manager
-        app.kubernetes.io/component: "cainjector"
-        app.kubernetes.io/version: "v1.10.2"
+        app.kubernetes.io/component: cainjector
+        app.kubernetes.io/version: v1.12.0
         addonmanager.kubernetes.io/mode: Reconcile
     spec:
       serviceAccountName: cert-manager-cainjector
@@ -858,7 +1196,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: cert-manager-cainjector
-          image: "quay.io/jetstack/cert-manager-cainjector:v1.10.2"
+          image: quay.io/jetstack/cert-manager-cainjector:v1.12.0
           imagePullPolicy: IfNotPresent
           args:
             - --v=2
@@ -886,8 +1224,8 @@ metadata:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "controller"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
 spec:
   replicas: 1
@@ -895,20 +1233,20 @@ spec:
     matchLabels:
       app.kubernetes.io/name: cert-manager
       app.kubernetes.io/instance: cert-manager
-      app.kubernetes.io/component: "controller"
+      app.kubernetes.io/component: controller
   template:
     metadata:
       labels:
         app: cert-manager
         app.kubernetes.io/name: cert-manager
         app.kubernetes.io/instance: cert-manager
-        app.kubernetes.io/component: "controller"
-        app.kubernetes.io/version: "v1.10.2"
+        app.kubernetes.io/component: controller
+        app.kubernetes.io/version: v1.12.0
         addonmanager.kubernetes.io/mode: Reconcile
       annotations:
-        prometheus.io/path: "/metrics"
-        prometheus.io/scrape: 'true'
-        prometheus.io/port: '9402'
+        prometheus.io/path: /metrics
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9402"
     spec:
       serviceAccountName: cert-manager
       securityContext:
@@ -917,15 +1255,20 @@ spec:
           type: RuntimeDefault
       containers:
         - name: cert-manager-controller
-          image: "quay.io/jetstack/cert-manager-controller:v1.10.2"
+          image: quay.io/jetstack/cert-manager-controller:v1.12.0
           imagePullPolicy: IfNotPresent
           args:
             - --v=2
             - --cluster-resource-namespace=$(POD_NAMESPACE)
             - --leader-election-namespace=kube-system
+            - --acme-http01-solver-image=quay.io/jetstack/cert-manager-acmesolver:v1.12.0
+            - --max-concurrent-challenges=60
           ports:
             - containerPort: 9402
               name: http-metrics
+              protocol: TCP
+            - containerPort: 9403
+              name: http-healthz
               protocol: TCP
           securityContext:
             allowPrivilegeEscalation: false
@@ -950,8 +1293,8 @@ metadata:
     app: webhook
     app.kubernetes.io/name: webhook
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "webhook"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: webhook
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
 spec:
   replicas: 1
@@ -959,15 +1302,15 @@ spec:
     matchLabels:
       app.kubernetes.io/name: webhook
       app.kubernetes.io/instance: cert-manager
-      app.kubernetes.io/component: "webhook"
+      app.kubernetes.io/component: webhook
   template:
     metadata:
       labels:
         app: webhook
         app.kubernetes.io/name: webhook
         app.kubernetes.io/instance: cert-manager
-        app.kubernetes.io/component: "webhook"
-        app.kubernetes.io/version: "v1.10.2"
+        app.kubernetes.io/component: webhook
+        app.kubernetes.io/version: v1.12.0
         addonmanager.kubernetes.io/mode: Reconcile
     spec:
       serviceAccountName: cert-manager-webhook
@@ -977,7 +1320,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: cert-manager-webhook
-          image: "quay.io/jetstack/cert-manager-webhook:v1.10.2"
+          image: quay.io/jetstack/cert-manager-webhook:v1.12.0
           imagePullPolicy: IfNotPresent
           args:
             - --v=2
@@ -1036,25 +1379,26 @@ metadata:
     app: webhook
     app.kubernetes.io/name: webhook
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "webhook"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: webhook
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
   annotations:
-    cert-manager.io/inject-ca-from-secret: "cert-manager/cert-manager-webhook-ca"
+    cert-manager.io/inject-ca-from-secret: cert-manager/cert-manager-webhook-ca
 webhooks:
   - name: webhook.cert-manager.io
     rules:
       - apiGroups:
-          - "cert-manager.io"
-          - "acme.cert-manager.io"
+          - cert-manager.io
+          - acme.cert-manager.io
         apiVersions:
-          - "v1"
+          - v1
         operations:
           - CREATE
           - UPDATE
         resources:
-          - "*/*"
-    admissionReviewVersions: ["v1"]
+          - '*/*'
+    admissionReviewVersions:
+      - v1
     matchPolicy: Equivalent
     timeoutSeconds: 10
     failurePolicy: Fail
@@ -1074,35 +1418,36 @@ metadata:
     app: webhook
     app.kubernetes.io/name: webhook
     app.kubernetes.io/instance: cert-manager
-    app.kubernetes.io/component: "webhook"
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/component: webhook
+    app.kubernetes.io/version: v1.12.0
     addonmanager.kubernetes.io/mode: Reconcile
   annotations:
-    cert-manager.io/inject-ca-from-secret: "cert-manager/cert-manager-webhook-ca"
+    cert-manager.io/inject-ca-from-secret: cert-manager/cert-manager-webhook-ca
 webhooks:
   - name: webhook.cert-manager.io
     namespaceSelector:
       matchExpressions:
-        - key: "cert-manager.io/disable-validation"
-          operator: "NotIn"
+        - key: cert-manager.io/disable-validation
+          operator: NotIn
           values:
             - "true"
-        - key: "name"
-          operator: "NotIn"
+        - key: name
+          operator: NotIn
           values:
             - cert-manager
     rules:
       - apiGroups:
-          - "cert-manager.io"
-          - "acme.cert-manager.io"
+          - cert-manager.io
+          - acme.cert-manager.io
         apiVersions:
-          - "v1"
+          - v1
         operations:
           - CREATE
           - UPDATE
         resources:
-          - "*/*"
-    admissionReviewVersions: ["v1"]
+          - '*/*'
+    admissionReviewVersions:
+      - v1
     matchPolicy: Equivalent
     timeoutSeconds: 10
     failurePolicy: Fail
