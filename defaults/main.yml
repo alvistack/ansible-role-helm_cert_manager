@@ -14,5 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# ConfigMap for cert-manager.
+kube_cert_manager_configmap_cert_manager: {}
+
 # ConfigMap for cert-manager-webhook.
-kube_cert_manager_configmap_cert_manager_webhook: ~
+kube_cert_manager_configmap_cert_manager_webhook: {}
