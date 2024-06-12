@@ -16,5 +16,6 @@
 
 # ConfigMap for cert-manager.
 kube_cert_manager_configmap_cert_manager: {}
+
 # ConfigMap for cert-manager-webhook.
 kube_cert_manager_configmap_cert_manager_webhook: {}
