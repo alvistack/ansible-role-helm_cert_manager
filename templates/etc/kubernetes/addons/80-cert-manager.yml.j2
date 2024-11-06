@@ -32,7 +32,7 @@ metadata:
     app.kubernetes.io/name: cainjector
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: cainjector
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
 
 ---
@@ -47,7 +47,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: controller
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
 
 ---
@@ -62,7 +62,7 @@ metadata:
     app.kubernetes.io/name: webhook
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: webhook
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
 
 ---
@@ -76,7 +76,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: controller
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
 {% if kube_cert_manager_configmap_cert_manager %}
 data:
@@ -94,7 +94,7 @@ metadata:
     app.kubernetes.io/name: webhook
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: webhook
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
 {% if kube_cert_manager_configmap_cert_manager_webhook %}
 data:
@@ -111,7 +111,7 @@ metadata:
     app.kubernetes.io/name: cainjector
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: cainjector
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
   - apiGroups:
@@ -181,7 +181,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: controller
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
   - apiGroups:
@@ -229,7 +229,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: controller
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
   - apiGroups:
@@ -277,7 +277,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: controller
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
   - apiGroups:
@@ -348,7 +348,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: controller
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
   - apiGroups:
@@ -416,7 +416,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: controller
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
   - apiGroups:
@@ -523,7 +523,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: controller
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
   - apiGroups:
@@ -594,7 +594,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: controller
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
     rbac.authorization.k8s.io/aggregate-to-cluster-reader: "true"
 rules:
@@ -617,7 +617,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: controller
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
     rbac.authorization.k8s.io/aggregate-to-view: "true"
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
@@ -654,7 +654,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: controller
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
     rbac.authorization.k8s.io/aggregate-to-admin: "true"
@@ -699,7 +699,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: cert-manager
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
   - apiGroups:
@@ -722,7 +722,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: cert-manager
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
   - apiGroups:
@@ -767,7 +767,7 @@ metadata:
     app.kubernetes.io/name: webhook
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: webhook
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
   - apiGroups:
@@ -787,7 +787,7 @@ metadata:
     app.kubernetes.io/name: cainjector
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: cainjector
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -808,7 +808,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: controller
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -829,7 +829,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: controller
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -850,7 +850,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: controller
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -871,7 +871,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: controller
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -892,7 +892,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: controller
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -913,7 +913,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: controller
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -934,7 +934,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: cert-manager
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -955,7 +955,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: cert-manager
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -976,15 +976,14 @@ metadata:
     app.kubernetes.io/name: webhook
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: webhook
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: cert-manager-webhook:subjectaccessreviews
 subjects:
-  - apiGroup: ""
-    kind: ServiceAccount
+  - kind: ServiceAccount
     name: cert-manager-webhook
     namespace: cert-manager
 
@@ -999,7 +998,7 @@ metadata:
     app.kubernetes.io/name: cainjector
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: cainjector
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
   - apiGroups:
@@ -1031,7 +1030,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: controller
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
   - apiGroups:
@@ -1055,6 +1054,29 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
+  name: cert-manager-tokenrequest
+  namespace: cert-manager
+  labels:
+    app: cert-manager
+    app.kubernetes.io/name: cert-manager
+    app.kubernetes.io/instance: cert-manager
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/version: v1.16.1
+    addonmanager.kubernetes.io/mode: Reconcile
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - serviceaccounts/token
+    resourceNames:
+      - cert-manager
+    verbs:
+      - create
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
   name: cert-manager-webhook:dynamic-serving
   namespace: cert-manager
   labels:
@@ -1062,7 +1084,7 @@ metadata:
     app.kubernetes.io/name: webhook
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: webhook
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
   - apiGroups:
@@ -1094,7 +1116,7 @@ metadata:
     app.kubernetes.io/name: cainjector
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: cainjector
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -1116,15 +1138,36 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: controller
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
   name: cert-manager:leaderelection
 subjects:
-  - apiGroup: ""
-    kind: ServiceAccount
+  - kind: ServiceAccount
+    name: cert-manager
+    namespace: cert-manager
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cert-manager-cert-manager-tokenrequest
+  namespace: cert-manager
+  labels:
+    app: cert-manager
+    app.kubernetes.io/name: cert-manager
+    app.kubernetes.io/instance: cert-manager
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/version: v1.16.1
+    addonmanager.kubernetes.io/mode: EnsureExists
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: cert-manager-tokenrequest
+subjects:
+  - kind: ServiceAccount
     name: cert-manager
     namespace: cert-manager
 
@@ -1139,17 +1182,40 @@ metadata:
     app.kubernetes.io/name: webhook
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: webhook
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
   name: cert-manager-webhook:dynamic-serving
 subjects:
-  - apiGroup: ""
-    kind: ServiceAccount
+  - kind: ServiceAccount
     name: cert-manager-webhook
     namespace: cert-manager
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cert-manager-cainjector
+  namespace: cert-manager
+  labels:
+    app: cainjector
+    app.kubernetes.io/name: cainjector
+    app.kubernetes.io/instance: cert-manager
+    app.kubernetes.io/component: cainjector
+    app.kubernetes.io/version: v1.16.1
+    addonmanager.kubernetes.io/mode: Reconcile
+spec:
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 9402
+      name: http-metrics
+  selector:
+    app.kubernetes.io/name: cainjector
+    app.kubernetes.io/instance: cert-manager
+    app.kubernetes.io/component: cainjector
 
 ---
 apiVersion: v1
@@ -1162,7 +1228,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: controller
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
 spec:
   type: ClusterIP
@@ -1187,7 +1253,7 @@ metadata:
     app.kubernetes.io/name: webhook
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: webhook
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
 spec:
   type: ClusterIP
@@ -1196,6 +1262,10 @@ spec:
       port: 443
       protocol: TCP
       targetPort: https
+    - name: metrics
+      port: 9402
+      protocol: TCP
+      targetPort: http-metrics
   selector:
     app.kubernetes.io/name: webhook
     app.kubernetes.io/instance: cert-manager
@@ -1212,7 +1282,7 @@ metadata:
     app.kubernetes.io/name: cainjector
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: cainjector
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
 spec:
   replicas: 1
@@ -1228,7 +1298,11 @@ spec:
         app.kubernetes.io/name: cainjector
         app.kubernetes.io/instance: cert-manager
         app.kubernetes.io/component: cainjector
-        app.kubernetes.io/version: v1.15.3
+        app.kubernetes.io/version: v1.16.1
+      annotations:
+        prometheus.io/path: /metrics
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9402"
     spec:
       serviceAccountName: cert-manager-cainjector
       enableServiceLinks: false
@@ -1238,11 +1312,15 @@ spec:
           type: RuntimeDefault
       containers:
         - name: cert-manager-cainjector
-          image: quay.io/jetstack/cert-manager-cainjector:v1.15.3
+          image: quay.io/jetstack/cert-manager-cainjector:v1.16.1
           imagePullPolicy: IfNotPresent
           args:
             - --v=2
             - --leader-election-namespace=kube-system
+          ports:
+            - containerPort: 9402
+              name: http-metrics
+              protocol: TCP
           env:
             - name: POD_NAMESPACE
               valueFrom:
@@ -1268,7 +1346,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: controller
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
 spec:
   replicas: 1
@@ -1284,7 +1362,7 @@ spec:
         app.kubernetes.io/name: cert-manager
         app.kubernetes.io/instance: cert-manager
         app.kubernetes.io/component: controller
-        app.kubernetes.io/version: v1.15.3
+        app.kubernetes.io/version: v1.16.1
       annotations:
         prometheus.io/path: /metrics
         prometheus.io/scrape: "true"
@@ -1298,13 +1376,13 @@ spec:
           type: RuntimeDefault
       containers:
         - name: cert-manager-controller
-          image: quay.io/jetstack/cert-manager-controller:v1.15.3
+          image: quay.io/jetstack/cert-manager-controller:v1.16.1
           imagePullPolicy: IfNotPresent
           args:
             - --v=2
             - --cluster-resource-namespace=$(POD_NAMESPACE)
             - --leader-election-namespace=kube-system
-            - --acme-http01-solver-image=quay.io/jetstack/cert-manager-acmesolver:v1.15.3
+            - --acme-http01-solver-image=quay.io/jetstack/cert-manager-acmesolver:v1.16.1
             - --max-concurrent-challenges=60
           ports:
             - containerPort: 9402
@@ -1348,7 +1426,7 @@ metadata:
     app.kubernetes.io/name: webhook
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: webhook
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
 spec:
   replicas: 1
@@ -1364,7 +1442,11 @@ spec:
         app.kubernetes.io/name: webhook
         app.kubernetes.io/instance: cert-manager
         app.kubernetes.io/component: webhook
-        app.kubernetes.io/version: v1.15.3
+        app.kubernetes.io/version: v1.16.1
+      annotations:
+        prometheus.io/path: /metrics
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9402"
     spec:
       serviceAccountName: cert-manager-webhook
       enableServiceLinks: false
@@ -1374,7 +1456,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: cert-manager-webhook
-          image: quay.io/jetstack/cert-manager-webhook:v1.15.3
+          image: quay.io/jetstack/cert-manager-webhook:v1.16.1
           imagePullPolicy: IfNotPresent
           args:
             - --v=2
@@ -1391,6 +1473,9 @@ spec:
             - name: healthcheck
               protocol: TCP
               containerPort: 6080
+            - containerPort: 9402
+              name: http-metrics
+              protocol: TCP
           livenessProbe:
             httpGet:
               path: /livez
@@ -1435,7 +1520,7 @@ metadata:
     app.kubernetes.io/name: webhook
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: webhook
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
   annotations:
     cert-manager.io/inject-ca-from-secret: cert-manager/cert-manager-webhook-ca
@@ -1472,7 +1557,7 @@ metadata:
     app.kubernetes.io/name: webhook
     app.kubernetes.io/instance: cert-manager
     app.kubernetes.io/component: webhook
-    app.kubernetes.io/version: v1.15.3
+    app.kubernetes.io/version: v1.16.1
     addonmanager.kubernetes.io/mode: Reconcile
   annotations:
     cert-manager.io/inject-ca-from-secret: cert-manager/cert-manager-webhook-ca
