@@ -14,8 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# ConfigMap for cert-manager.
-kube_cert_manager_configmap_cert_manager: {}
+# Release name to manage.
+kube_cert_manager_helm_release_name: cert-manager
 
-# ConfigMap for cert-manager-webhook.
-kube_cert_manager_configmap_cert_manager_webhook: {}
+# Kubernetes namespace where the chart should be installed.
+kube_cert_manager_helm_release_namespace: cert-manager
+
+# Value to pass to chart.
+kube_cert_manager_helm_release_values:
+  crds:
+    enabled: true
