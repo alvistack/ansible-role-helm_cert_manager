@@ -43,8 +43,8 @@
 
     - name: include role
       ansible.builtin.include_role:
-        name: alvistack.kube_cilium
+        name: alvistack.helm_cilium
 
     - name: include role
       ansible.builtin.include_role:
-        name: alvistack.kube_cert_manager
+        name: alvistack.helm_cert_manager

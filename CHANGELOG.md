@@ -1,7 +1,8 @@
-# Ansible Role for cert-manager on Kubernetes
+# Ansible Role for cert-manager with Helm
 
 ## 11.4.0 - TBC
 
+- Rename prefix with `helm_`
 - Simplify with Helm
 
 ## 11.3.0 - 2025-02-27

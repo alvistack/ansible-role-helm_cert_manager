@@ -15,12 +15,12 @@
 # limitations under the License.
 
 # Release name to manage.
-kube_cert_manager_helm_release_name: cert-manager
+helm_cert_manager_helm_release_name: cert-manager
 
 # Kubernetes namespace where the chart should be installed.
-kube_cert_manager_helm_release_namespace: cert-manager
+helm_cert_manager_helm_release_namespace: cert-manager
 
 # Value to pass to chart.
-kube_cert_manager_helm_release_values:
+helm_cert_manager_helm_release_values:
   crds:
     enabled: true

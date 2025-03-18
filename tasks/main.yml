@@ -88,8 +88,8 @@
 
 - name: helm install
   kubernetes.core.helm:
-    release_name: "{{ kube_cert_manager_helm_release_name }}"
-    release_namespace: "{{ kube_cert_manager_helm_release_namespace }}"
+    release_name: "{{ helm_cert_manager_helm_release_name }}"
+    release_namespace: "{{ helm_cert_manager_helm_release_namespace }}"
     chart_ref: /etc/kubernetes/charts/cert-manager
     values_files: /etc/kubernetes/charts/cert-manager.values.yaml
     create_namespace: true
