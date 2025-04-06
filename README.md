@@ -7,7 +7,7 @@
 [![GitHub license](https://img.shields.io/github/license/alvistack/ansible-role-helm_cert_manager.svg)](https://github.com/alvistack/ansible-role-helm_cert_manager/blob/master/LICENSE)
 [![Ansible Role](https://img.shields.io/badge/galaxy-alvistack.helm_cert_manager-blue.svg)](https://galaxy.ansible.com/alvistack/helm_cert_manager)
 
-Ansible Role for cert-manager with Helm Installation.
+Ansible Role for cert-manager with Helm.
 
 ## Requirements
 
