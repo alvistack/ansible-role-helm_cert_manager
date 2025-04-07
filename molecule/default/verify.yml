@@ -31,7 +31,45 @@
           kubectl get pod --all-namespaces | egrep -e 'cert-manager\s+cert-manager-\S+\s+[0-9]+\/[0-9]+\s+Running'
       args:
         executable: /bin/bash
-      when: inventory_hostname == ansible_play_hosts[0]
+      when: inventory_hostname == groups['kube_master'][0]
+      register: result
+      changed_when: result is not succeeded
+      until: result is succeeded
+      retries: 60
+
+    - name: create issuer
+      vars:
+        ansible_python_interpreter: python3
+      kubernetes.core.k8s:
+        state: present
+        wait: true
+        definition:
+          apiVersion: cert-manager.io/v1
+          kind: Issuer
+          metadata:
+            name: selfsigned-issuer
+            namespace: default
+          spec:
+            selfSigned: {}
+      when: inventory_hostname == groups['kube_master'][0]
+      register: result
+      changed_when: result is not succeeded
+      until: result is succeeded
+      retries: 60
+
+    - name: delete issuer
+      vars:
+        ansible_python_interpreter: python3
+      kubernetes.core.k8s:
+        state: absent
+        wait: true
+        definition:
+          apiVersion: cert-manager.io/v1
+          kind: Issuer
+          metadata:
+            name: selfsigned-issuer
+            namespace: default
+      when: inventory_hostname == groups['kube_master'][0]
       register: result
       changed_when: result is not succeeded
       until: result is succeeded
