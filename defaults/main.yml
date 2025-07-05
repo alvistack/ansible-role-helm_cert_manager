@@ -24,3 +24,5 @@ helm_cert_manager_helm_release_namespace: cert-manager
 helm_cert_manager_helm_release_values:
   crds:
     enabled: true
+  config:
+    ACMEHTTP01IngressPathTypeExact: false
