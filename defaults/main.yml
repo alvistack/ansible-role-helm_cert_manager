@@ -24,6 +24,8 @@ helm_cert_manager_helm_release_namespace: cert-manager
 helm_cert_manager_helm_release_values:
   crds:
     enabled: true
+  imageRegistry: quay.io
+  imageNamespace: jetstack
   config:
     featureGates:
       ACMEHTTP01IngressPathTypeExact: false
